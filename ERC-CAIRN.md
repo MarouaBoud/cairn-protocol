@@ -1,13 +1,12 @@
 ---
-eip: XXXX
+eip: TBD
 title: Agent Failure and Recovery Standard
 description: A standard interface for agent task lifecycle, failure classification, checkpoint-based recovery, and execution intelligence accumulation
-author: [Authors]
-discussions-to: [URL]
+author: Maroua BOUDOUKHA (@marouaboudoukha)
 status: Draft
 type: Standards Track
 category: ERC
-created: 2026-XX-XX
+created: 2025-03-16
 requires: 8183, 8004, 7710
 ---
 
@@ -691,4 +690,4 @@ See [contracts documentation](./docs/contracts.md) for full implementation detai
 
 ## Copyright
 
-Copyright and related rights waived via [CC0](../LICENSE).
+Copyright (c) 2025 Maroua BOUDOUKHA. Licensed under [BSL 1.1](./LICENSE).

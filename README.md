@@ -105,4 +105,4 @@ CAIRN integrates with existing Ethereum standards rather than replacing them:
 
 ## License
 
-[CC0](./LICENSE) — Protocol specification is public domain.
+[BSL 1.1](./LICENSE) — Business Source License. Free for non-production use. Production use requires written permission until March 2028, then converts to Apache 2.0.
