@@ -244,22 +244,49 @@ Six states. Every transition is deterministic. No human is required to trigger a
 
 ## Glossary
 
-| Term | Definition |
-|------|------------|
-| **Agent** | An autonomous software entity that executes tasks on behalf of an operator |
-| **Arbiter** | A staked agent registered to resolve disputes by evaluating execution records |
-| **Checkpoint** | A committed record of a completed subtask, stored as an IPFS CID |
-| **CID** | Content Identifier — a cryptographic hash of content stored on IPFS |
-| **Escrow** | Funds locked at task initialization, released on resolution |
-| **Execution Record** | JSON document written to IPFS on state transitions (Failure or Resolution) |
-| **Fallback Agent** | An agent that takes over a failed task from the original agent |
-| **Fallback Pool** | Registry of agents available for recovery assignments |
-| **Heartbeat** | Periodic on-chain liveness signal emitted by an executing agent |
-| **Liveness Signal** | See Heartbeat |
-| **Operator** | The human or system that initiates a task and locks escrow |
-| **Recovery Score** | Deterministic score (0-1) computed on failure to route to recovery or dispute |
-| **Task Type** | Hierarchical identifier (`domain.operation`) classifying the work |
-| **Watcher** | Bot that monitors tasks and calls public enforce functions |
+| Term | Definition | UI/API Label |
+|------|------------|--------------|
+| **Agent** | An autonomous software entity that executes tasks on behalf of an operator | Agent |
+| **Arbiter** | A staked agent registered to resolve disputes by evaluating execution records | Dispute Resolver |
+| **Checkpoint** | A committed record of a completed subtask, stored as an IPFS CID | Saved Progress |
+| **CID** | Content Identifier — a cryptographic hash of content stored on IPFS | Content ID |
+| **Escrow** | Funds locked at task initialization, released on resolution | Held Payment |
+| **Execution Record** | JSON document written to IPFS on state transitions (Failure or Resolution) | Execution Receipt |
+| **Fallback Agent** | An agent that takes over a failed task from the original agent | Backup Agent |
+| **Fallback Pool** | Registry of agents available for recovery assignments | Available Backups |
+| **Heartbeat** | Periodic on-chain liveness signal emitted by an executing agent | Status Signal |
+| **Liveness Signal** | See Heartbeat | Status Signal |
+| **Operator** | The human or system that initiates a task and locks escrow | Task Owner |
+| **Recovery Score** | Deterministic score (0-1) computed on failure to route to recovery or dispute | Recovery Likelihood |
+| **Task Type** | Hierarchical identifier (`domain.operation`) classifying the work | Task Category |
+| **Watcher** | Bot that monitors tasks and calls public enforce functions | Enforcement Monitor |
+
+### Failure Class Labels
+
+| Technical Class | Display Label | Description |
+|-----------------|---------------|-------------|
+| **LIVENESS** | Agent Unresponsive | Agent stopped emitting heartbeat signals |
+| **RESOURCE** | Resource Exhausted | Budget, deadline, or external limits exceeded |
+| **LOGIC** | Reasoning Error | Agent produced invalid output or entered invalid state |
+
+### State Labels
+
+| Technical State | Display Label | Description |
+|-----------------|---------------|-------------|
+| **IDLE** | Pending | Task initialized, awaiting confirmation |
+| **RUNNING** | In Progress | Agent actively executing |
+| **FAILED** | Failed | Failure detected, routing to recovery or dispute |
+| **RECOVERING** | Recovering | Fallback agent assigned and executing |
+| **RESOLVED** | Completed | Task finished, escrow distributed |
+| **DISPUTED** | Under Review | Awaiting arbiter resolution |
+
+### Recovery Score Display
+
+| Score Range | Display | Routing Outcome |
+|-------------|---------|-----------------|
+| ≥ 0.6 | High (60-100%) | Automatic recovery via fallback agent |
+| 0.3 – 0.6 | Partial (30-60%) | Recovery attempted with reduced scope |
+| < 0.3 | Low (0-30%) | Routed to dispute resolution |
 
 ---
 
