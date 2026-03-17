@@ -2,3 +2,7 @@ CAIRN_PROTOCOL_SPEC.md
 
 # Local documentation drafts (not for version control)
 local-docs/
+
+# Planning and research files (internal)
+.planning/
+.planning/phases
