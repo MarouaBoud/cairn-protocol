@@ -8,6 +8,85 @@
 
 ---
 
+## The Problem: Invisible Failures, Wasted Work
+
+**Agent workflows fail 80% of the time.** At 85% success per action, a 10-step workflow completes only ~20% of the time. When failures happen today:
+
+| What Happens | Cost |
+|--------------|------|
+| Work is lost | Restart from zero — all progress gone |
+| Escrow locks | Funds stuck in ambiguous state for hours/days |
+| No one learns | Same failure repeats across the ecosystem |
+| Human intervention required | 2am pages, manual debugging, delayed resolution |
+
+**The ecosystem is bleeding value.** Every silent failure is money lost, time wasted, and a lesson unlearned.
+
+### The Cost of Doing Nothing
+
+```
+Monthly failure cost = failures × avg_escrow × (1 - recovery_rate) + restart_cost + opportunity_cost
+
+Example (single operator):
+- 20 failures/month × $50 avg escrow × 100% loss rate = $1,000 direct loss
+- 20 restarts × $15 gas (duplicate work) = $300 gas waste
+- 20 failures × 4 hours avg delay × $50/hour opportunity = $4,000 opportunity cost
+- Total: ~$5,300/month lost to unrecovered failures
+```
+
+---
+
+## A Failure Story: What Happens Today
+
+**Scenario:** DeFi rebalancing agent on Base
+**Time:** 2:47am UTC, Saturday
+**Task:** Rebalance $12,000 across 3 pools
+
+| Step | Action | Result |
+|------|--------|--------|
+| 1 | Price fetch | SUCCESS |
+| 2 | Approve token A | SUCCESS |
+| 3 | Swap on DEX | **FAILED** — rate limit (429) |
+
+**What happened next:**
+- Agent stopped. No heartbeat for 45 minutes.
+- Escrow: $45 locked in ambiguous state
+- Operator notified: 7:15am (4.5 hours later)
+- Resolution: Manual restart from scratch
+- Work lost: Approvals (Step 2) must be re-done
+- **Total cost:** $45 escrow delay + $12 gas (duplicate approvals) + 4.5 hours delay
+
+**With CAIRN:**
+
+| Time | Event |
+|------|-------|
+| 2:47am | Agent fails (rate limit) |
+| 2:52am | CAIRN detects (liveness timeout) |
+| 2:52am | Classified: RESOURCE failure, recovery score: 0.74 |
+| 2:53am | Fallback agent assigned from pool |
+| 2:53am | Fallback reads checkpoints — approvals preserved |
+| 3:08am | Task completed by fallback |
+| 3:08am | Escrow split: Original 66% / Fallback 33% |
+
+**Total delay: 21 minutes** (vs. 4.5 hours)
+**Work preserved:** Yes (checkpoint 2)
+**Escrow settled:** Fairly, proportional to verified work
+
+---
+
+## Why Now
+
+| Signal | Status |
+|--------|--------|
+| **ERC-8183 is live** | Agent escrow infrastructure shipped March 2026 |
+| **600+ agents on Olas** | Real fallback pool available today |
+| **$479M aGDP** | Real money flowing through agent transactions |
+| **80% workflow failure rate** | At 85% per-action success, most multi-step tasks fail |
+
+
+The infrastructure is ready. The problem is severe. The gap is real.
+
+---
+
 ## The Cairn Metaphor
 
 A cairn is a stack of stones left by travelers to mark the path — so the next traveler knows where to go, and where not to. Every agent failure leaves a cairn. Every future agent reads it.
@@ -67,6 +146,8 @@ This is what makes CAIRN compound in value over time. The knowledge graph grows 
 | [Integration](./docs/integration.md) | Checkpoint protocol, fallback pool, guides |
 | [Contracts](./docs/contracts.md) | Interfaces, schemas, component reference |
 | [Standards](./docs/standards.md) | ERC-8183, ERC-8004, ERC-7710, Olas integration |
+| [Alternatives](./docs/alternatives.md) | Comparison with LangGraph, Temporal, Kubernetes, LangSmith |
+| [Observer](./docs/observer.md) | CAIRN Observer — failure cost visibility layer |
 
 ---
 
@@ -94,12 +175,14 @@ This is what makes CAIRN compound in value over time. The knowledge graph grows 
 
 CAIRN integrates with existing Ethereum standards rather than replacing them:
 
-| Standard | Role in CAIRN |
-|----------|---------------|
-| **ERC-8183** | Job escrow + lifecycle hooks |
-| **ERC-8004** | Agent identity + reputation signals |
-| **ERC-7710** | Caveat-enforced delegation for fallback |
-| **Olas Mech Marketplace** | Fallback agent pool |
+| Standard | What It Provides | Role in CAIRN |
+|----------|------------------|---------------|
+| **ERC-8183** | Standardized escrow for agent jobs with lifecycle hooks | Holds payment until task completes; CAIRN registers as a lifecycle hook to intercept failures |
+| **ERC-8004** | On-chain agent identity and reputation registry | Verifies agent identity; CAIRN writes success/failure signals to reputation scores |
+| **ERC-7710** | Scoped permission delegation with caveats | Enables pre-authorized fallback assignment without requiring new signatures at recovery time |
+| **Olas Mech Marketplace** | Registry of available agent services with staking | Provides the fallback agent pool; CAIRN queries for best-fit backup agents |
+
+For detailed integration guidance, see [Standards Documentation](./docs/standards.md).
 
 ---
 
