@@ -7,7 +7,7 @@
 - [x] **Phase 0**: PRD Written & Approved
 - [ ] **Phase 1**: Contract Development (Days 1-3)
 - [ ] **Phase 2**: SDK Development (Days 4-5)
-- [ ] **Phase 3**: Frontend & Demo (Days 6-8)
+- [🟢] **Phase 3**: Frontend & Demo (Days 6-8)
 - [ ] **Phase 4**: Integration & Polish (Days 9-10)
 - [ ] **Phase 5**: Submission
 
@@ -30,7 +30,7 @@
 |----------|-------------|--------|--------------|
 | Contract-Dev | TBD | 🔵 Ready | Task 1 |
 | SDK-Dev | TBD | ⏸️ Waiting | Blocked by Contract |
-| Frontend-Dev | TBD | ⏸️ Waiting | Blocked by SDK |
+| Frontend-Dev | Lagartha | 🟢 In Progress | Task 16 |
 | Integration | TBD | ⏸️ Waiting | Blocked by All |
 
 ## Task Breakdown
@@ -63,8 +63,8 @@
 
 | # | Task | Owner | Status | Blocked By | Notes |
 |---|------|-------|--------|------------|-------|
-| 15 | Setup Next.js + wagmi | Frontend-Dev | ⏸️ | 14 | |
-| 16 | Task list component | Frontend-Dev | ⏸️ | 15 | |
+| 15 | Setup Next.js + wagmi | Frontend-Dev | ✅ | 14 | Next.js scaffold created | 
+| 16 | Task list component | Frontend-Dev | 🟢 | 15 | In progress | 
 | 17 | Task detail component | Frontend-Dev | ⏸️ | 16 | |
 | 18 | State machine visualization | Frontend-Dev | ⏸️ | 17 | |
 | 19 | Demo control panel | Frontend-Dev | ⏸️ | 18 | |
@@ -122,6 +122,11 @@ March 2026
 - ✅ STATUS.md created
 - ✅ Spawn prompts created
 - Next: Start Contract-Dev (Day 1)
+
+### Day 1 (March 17) — Frontend kickoff
+- ✅ Next.js scaffold created (frontend/)
+- 🟢 Task list component in progress
+- ✅ Watcher scaffold created (watcher/)
 
 ---
 
