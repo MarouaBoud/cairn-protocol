@@ -6,3 +6,5 @@ local-docs/
 # Planning and research files (internal)
 .planning/
 .planning/phases
+# Local-only
+docs/SPONSOR_FIT_MATRIX.md
