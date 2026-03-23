@@ -9,7 +9,7 @@
 - [ ] **Phase 2**: SDK Development (Days 4-5)
 - [🟢] **Phase 3**: Frontend & Demo (Days 6-8)
 - [ ] **Phase 4**: Integration & Polish (Days 9-10)
-- [ ] **Phase 5**: Submission
+- [🟢] **Phase 5**: Submission
 
 ## Pipeline Checklist
 
@@ -22,7 +22,7 @@
 | Frontend Complete | ⏳ | Blocked by SDK |
 | E2E Tests Pass | ⏳ | Blocked by frontend |
 | Demo Rehearsed | ⏳ | Blocked by E2E |
-| Submitted | ⏳ | Target: March 23 |
+| Submitted | ⏳ | Draft in progress |
 
 ## Active Teammates
 
